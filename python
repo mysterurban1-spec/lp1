@@ -1,0 +1,39 @@
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+st.set_page_config(page_title="Student Dashboard")
+
+st.title("📊 Student Dashboard")
+
+name = st.text_input("Enter your name")
+
+if name:
+    st.success(f"Welcome, {name}!")
+
+marks = st.slider("Math Marks", 0, 100, 75)
+
+if marks >= 90:
+    grade = "A"
+elif marks >= 75:
+    grade = "B"
+elif marks >= 60:
+    grade = "C"
+else:
+    grade = "D"
+
+st.write("Grade:", grade)
+
+data = pd.DataFrame({
+    "Subject": ["Math", "Science", "English"],
+    "Marks": [marks, 85, 78]
+})
+
+st.subheader("Marks Table")
+st.dataframe(data)
+
+st.subheader("Marks Chart")
+
+fig, ax = plt.subplots()
+ax.bar(data["Subject"], data["Marks"])
+st.pyplot(fig)
